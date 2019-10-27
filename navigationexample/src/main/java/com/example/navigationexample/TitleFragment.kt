@@ -1,5 +1,6 @@
 package com.example.navigationexample
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,6 +19,12 @@ import com.example.navigationexample.databinding.TitleFragmentBinding
  * @date 2019/10/27
  */
 class TitleFragment : Fragment() {
+    private lateinit var callback: OptionItemsSelectCallback
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = context as OptionItemsSelectCallback
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -46,6 +53,7 @@ class TitleFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        callback.onOptionItemsSelected()
         return (NavigationUI.onNavDestinationSelected(
             item,
             findNavController()
@@ -54,5 +62,9 @@ class TitleFragment : Fragment() {
 
     private fun setupAppBarTitle() {
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.history_challenge)
+    }
+
+    interface OptionItemsSelectCallback {
+        fun onOptionItemsSelected()
     }
 }

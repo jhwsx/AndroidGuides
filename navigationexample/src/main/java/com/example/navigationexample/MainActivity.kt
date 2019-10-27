@@ -2,6 +2,8 @@ package com.example.navigationexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -10,7 +12,9 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import com.example.navigationexample.databinding.MainActivityBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TitleFragment.OptionItemsSelectCallback {
+
+
     private lateinit var binding: MainActivityBinding
     private lateinit var navController: NavController
     private lateinit var drawerLayout: DrawerLayout
@@ -31,9 +35,28 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
 //        return navController.navigateUp()
-        return navController.navigateUp(drawerLayout)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+            return false
+        } else {
+            return navController.navigateUp(drawerLayout)
+        }
     }
 
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+            return
+        }
+        super.onBackPressed()
+
+    }
+
+    override fun onOptionItemsSelected() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
     }
