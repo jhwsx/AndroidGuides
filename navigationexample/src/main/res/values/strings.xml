@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">HistoryChallenge</string>
+    <string name="history_challenge">历史大挑战</string>
+    <string name="title_start">开始</string>
+    <string name="title_history_chanllenge_question">历史大挑战 (%1$d/%2$d)</string>
+    <string name="title_challenge_success">挑战成功</string>
+    <string name="title_challenge_fail">挑战失败</string>
+    <string name="title_about">关于</string>
+    <string name="about_text">历史大挑战，挑战你的历史常识，更好地认识祖国的历史。</string>
+    <string name="title_rules">规则</string>
+    <string name="rules_text">从选项中选出答案。选择正确，就进入下一题。选择错误，就挑战结束。</string>
+</resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/titleFragment">
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.navigationexample.TitleFragment"
+        android:label="TitleFragment"
+        tools:layout="@layout/title_fragment">
+        <action
+            android:id="@+id/action_titleFragment_to_challengeFragment"
+            app:destination="@id/challengeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/challengeFragment"
+        android:name="com.example.navigationexample.ChallengeFragment"
+        android:label="ChallengeFragment"
+        tools:layout="@layout/challenge_fragment" >
+        <!--下面的 popUpTo 指定 titleFragment，而 popUpToInclusive 未指定(未指定，和 false 是一样的)，表示在执行导航前，会把回退栈清到 titleFragment 这个位置，但是不会清除 titleFragment -->
+        <action
+            android:id="@+id/action_challengeFragment_to_challengeSuccessFragment"
+            app:destination="@id/challengeSuccessFragment"
+            app:popUpTo="@+id/titleFragment" />
+        <!--下面的 popUpTo 指定 challengeFragment，而 popUpToInclusive 指定为 true，表示在执行导航前，会把回退栈清到 challengeFragment 这个位置，并且会清除 challengeFragment-->
+        <action
+            android:id="@+id/action_challengeFragment_to_challengeFailFragment"
+            app:destination="@id/challengeFailFragment"
+            app:popUpTo="@+id/challengeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/challengeSuccessFragment"
+        android:name="com.example.navigationexample.ChallengeSuccessFragment"
+        android:label="ChallengeSuccessFragment"
+        tools:layout="@layout/challenge_success_fragment" >
+        <!--下面的 popUpTo 指定 titleFragment，而 popUpToInclusive 设置为 false，表示在执行导航前，会把回退栈清到 titleFragment 这个位置，但不会清掉 titleFragment;
+        如果不写这个 popUpTo，那么在执行这个导航后，ChallengeSuccessFragment 还在-->
+        <action
+            android:id="@+id/action_challengeSuccessFragment_to_challengeFragment"
+            app:destination="@id/challengeFragment"
+            app:popUpTo="@+id/titleFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/challengeFailFragment"
+        android:name="com.example.navigationexample.ChallengeFailFragment"
+        android:label="ChallengeFailFragment"
+        tools:layout="@layout/challenge_fail_fragment" >
+        <action
+            android:id="@+id/action_challengeFailFragment_to_challengeFragment"
+            app:destination="@id/challengeFragment"
+            app:popUpTo="@id/titleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        tools:layout="@layout/about_fragment"
+        android:name="com.example.navigationexample.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        tools:layout="@layout/rules_fragment"
+        android:name="com.example.navigationexample.RulesFragment"
+        android:label="RulesFragment" />
+
+</navigation>
