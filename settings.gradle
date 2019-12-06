@@ -1,1 +1,1 @@
-include ':app', ':navigationexample'
+include ':app', ':navigationexample', ':workermanagerexample'
