@@ -1,1 +1,2 @@
+include ':openglesexample'
 include ':app', ':navigationexample', ':workermanagerexample'
