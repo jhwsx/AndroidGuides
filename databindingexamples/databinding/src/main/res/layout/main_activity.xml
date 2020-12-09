@@ -4,24 +4,124 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="java.util.List" />
+
+        <import type="java.util.Map" />
+
         <variable
             name="user"
             type="com.example.databinding.User" />
+
+        <variable
+            name="list"
+            type="List&lt;String>" />
+
+        <variable
+            name="map"
+            type="Map&lt;String, String>" />
+
+        <variable
+            name="handlers"
+            type="com.example.databinding.MyHandlers" />
+
+        <variable
+            name="task"
+            type="com.example.databinding.Task" />
+
+        <variable
+            name="presenter"
+            type="com.example.databinding.Presenter" />
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".MainActivity">
 
         <TextView
-            android:text="@{user.firstName}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@{user.firstName, default=wzc}" />
 
         <TextView
-            android:text="@{user.lastName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@{user.displayName ?? user.lastName}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@{list[0]}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text='@{map["a"]}' />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@{@string/fullname(user.firstName, user.lastName)}" />
+
+        <!--绑定表达式把 view 的点击事件分配给了 onClickFriend 方法。-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{handlers::onClickFriend}"
+            android:padding="8dp"
+            android:text="Method references-Click Friend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> presenter.onSaveClick(task)}"
+            android:padding="8dp"
+            android:text="Listener bindings-onSaveTask1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view)-> presenter.onSaveClick(task)}"
+            android:padding="8dp"
+            android:text="Listener bindings-onSaveTask2" />
+
+        <!--不可以省略箭头前面括号里的 view 参数-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view)-> presenter.onSaveClick(view, task)}"
+            android:padding="8dp"
+            android:text="Listener bindings-onSaveTask3" />
+        <!--演示 lambda 里有多个参数-->
+        <!--
+         public static interface OnCheckedChangeListener {
+            void onCheckedChanged(CompoundButton buttonView, boolean isChecked);
+        }
+        -->
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onCheckedChanged="@{(cb,isChecked) -> presenter.onCompletedChanged(task, isChecked)}"
+            android:padding="8dp"
+            android:text="Completed" />
+
+        <!--演示返回值不为 void 的例子-->
+        <!--
+        public interface OnLongClickListener {
+            boolean onLongClick(View v);
+        }
+        -->
+        <Button
+            android:text="Listener bindings-onLongClick"
+            android:textAllCaps="false"
+            android:onLongClick="@{(view) -> presenter.onLongClicked(view, task)}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
