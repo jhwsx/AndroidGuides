@@ -74,7 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{handlers::onClickFriend}"
+            android:onClick="@{null}"
             android:padding="8dp"
             android:text="Method references-Click Friend" />
 

@@ -10,9 +10,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        val binding: MainActivityBinding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         // 等价于下面两行的写法
-         val binding: MainActivityBinding = MainActivityBinding.inflate(layoutInflater)
+        val binding: MainActivityBinding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-         binding.user = User(firstName = "Test", lastName = "User")
+        binding.user = User(firstName = "Test", lastName = "User")
 //        binding.user = null
         // 集合
         binding.list = arrayListOf("A")
@@ -26,10 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         // Note: The signature of the method in the expression must exactly match the signature of
         // the method in the listener object. 表达式中的方法名必须完全匹配监听对象中的方法名。
-        binding.handlers = null
+        binding.handlers = MyHandlers()
 
         // Listener bindings
-        // In listener bindings, only your return value must match the expected return value of the listener (unless it is expecting void).
+        // In listener bindings, only your return value must match the expected return value of the
+        // listener (unless it is expecting void).
         binding.task = Task("taskA")
         binding.presenter = Presenter()
     }
